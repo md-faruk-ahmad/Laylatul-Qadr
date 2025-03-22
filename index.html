@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laylatul Qadr Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #0A0F0D;
+            color: white;
+            padding: 20px;
+        }
+        .container {
+            background: #1E2B2A;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            margin: auto;
+        }
+        h1, h2 {
+            color: #FFD700;
+        }
+        #countdown, #laylatulQadrCountdown {
+            font-size: 22px;
+            margin: 15px 0;
+            padding: 10px;
+            background: #284D48;
+            display: inline-block;
+            border-radius: 10px;
+        }
+        .content-box {
+            margin: 20px 0;
+            padding: 15px;
+            background: #2E574F;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🌙 Laylatul Qadr Tracker</h1>
+        <h2>Ramadan 2025 starts on March 2, 2025</h2>
+        <p id="countdown"></p>
+
+        <h2>🔹 Next Laylatul Qadr Night</h2>
+        <p id="laylatulQadrCountdown"></p>
+
+        <h2>📖 Quran Ayah</h2>
+        <div class="content-box">
+            <p id="quranicVerse">Fetching...</p>
+        </div>
+
+        <h2>📜 Hadith</h2>
+        <div class="content-box">
+            <p id="hadith">Fetching...</p>
+        </div>
+
+        <h2>🤲 Dua for Laylatul Qadr</h2>
+        <div class="content-box">
+            <p id="dua">Fetching...</p>
+        </div>
+    </div>
+
+<script>
+    // Quranic Verses related to Laylatul Qadr
+    const quranVerses = [
+        `"Indeed, We sent the Qur'an down during the Night of Decree (Laylatul Qadr)." - Surah Al-Qadr (97:1)`,
+        `"The Night of Decree is better than a thousand months." - Surah Al-Qadr (97:3)`,
+        `"Therein descend the angels and the Spirit (Gabriel) by Allah’s permission with all decrees." - Surah Al-Qadr (97:4)`,
+        `"Peace! It is until the emergence of dawn." - Surah Al-Qadr (97:5)`
+    ];
+
+    // Hadiths about Laylatul Qadr
+    const hadiths = [
+        `"Whoever prays on Laylatul Qadr out of faith and sincerity, all his past sins will be forgiven." - [Bukhari, Muslim]`,
+        `"Seek Laylatul Qadr in the last ten nights of Ramadan, particularly in the odd nights." - [Bukhari, Muslim]`,
+        `"Aisha (RA) asked the Prophet (SAW), 'O Messenger of Allah, if I know which night is Laylatul Qadr, what should I say?'. He said: 'Say: Allahumma innaka ‘afuwwun tuhibbul ‘afwa fa’fu ‘anni.'" - [Tirmidhi]`
+    ];
+
+    // Duas for Laylatul Qadr
+    const duas = [
+        `"اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ العَفْوَ فَاعْفُ عَنِّي" <br> (O Allah, You are Forgiving and love forgiveness, so forgive me.)`,
+        `"Ya Allah, grant me strength in my Imaan, forgive my sins, and accept my prayers in this blessed night."`,
+        `"O Allah, let me be among those who find Laylatul Qadr and receive its blessings."`
+    ];
+
+    function countdownRamadan() {
+        let today = new Date();
+        let ramadanStart = new Date('March 2, 2025 00:00:00');
+        let timeDiff = ramadanStart - today;
+
+        if (timeDiff > 0) {
+            let days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            let hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById("countdown").innerHTML = `⏳ ${days} days, ${hours} hours left until Ramadan!`;
+        } else {
+            document.getElementById("countdown").innerHTML = "🌙 Ramadan Mubarak!";
+        }
+    }
+
+    function getNextLaylatulQadr() {
+        let today = new Date();
+        let ramadanStart = new Date('March 2, 2025'); // Adjust as per actual date
+        let laylatulQadrNights = [21, 23, 25, 27, 29];
+
+        for (let night of laylatulQadrNights) {
+            let qadrDate = new Date(ramadanStart);
+            qadrDate.setDate(ramadanStart.getDate() + (night - 1)); // Get exact date
+
+            if (qadrDate >= today) {
+                let timeDiff = qadrDate - today;
+                let days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+                let hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                document.getElementById("laylatulQadrCountdown").innerHTML = 
+                    `🌟 Laylatul Qadr may be on ${qadrDate.toDateString()} <br>⏳ ${days} days, ${hours} hours left.`;
+                break;
+            }
+        }
+    }
+
+    function displayRandomContent() {
+        document.getElementById("quranicVerse").innerHTML = quranVerses[Math.floor(Math.random() * quranVerses.length)];
+        document.getElementById("hadith").innerHTML = hadiths[Math.floor(Math.random() * hadiths.length)];
+        document.getElementById("dua").innerHTML = duas[Math.floor(Math.random() * duas.length)];
+    }
+
+    setInterval(countdownRamadan, 1000);
+    setInterval(getNextLaylatulQadr, 1000);
+    displayRandomContent();
+</script>
+
+</body>
+</html>
